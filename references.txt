@@ -1,0 +1,3 @@
+cropping tool -> https://github.com/turner-anderson/streamlit-cropper.git
+ocr tool -> https://github.com/JaidedAI/EasyOCR.git
+zoom-in/out -> https://github.com/vgilabert94/streamlit-image-zoom/blob/main/README.md
