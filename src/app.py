@@ -62,6 +62,13 @@ def ocr(src_img):
 
             # Extract only the text element (index 1 of each item)
             st.write(result)
+            full_text = "\n".join(result)
+
+            st.download_button(
+                "Download Text",
+                full_text,
+                file_name="ocr.txt"
+            )
     else:
         st.info("Please upload before you proceed!")
 
