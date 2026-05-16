@@ -3,3 +3,4 @@ opencv-python-headless
 Pillow
 easyocr
 numpy
+streamlit-cropper
