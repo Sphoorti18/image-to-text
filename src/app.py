@@ -52,11 +52,18 @@ def ocr(src_img):
             # Add edges back to original image to sharpen
             sharpened = cv.add(blurred, laplacian_8u)
 
+            _, otsu = cv.threshold(
+                sharpened,
+                0,
+                255,
+                cv.THRESH_BINARY + cv.THRESH_OTSU
+            )
+
             #_,th3 = cv.threshold(sharpened,0,255,cv.THRESH_BINARY + cv.THRESH_OTSU)
 
-            st.image(sharpened)
+            st.image(otsu)
             reader = easyocr.Reader(['en'], gpu=False)
-            result=reader.readtext(sharpened, detail=0)
+            result=reader.readtext(otsu, detail=0)
             #single click to zoom in, click and drag to move the zoomed image, and double-click to zoom out.
             #image_zoom(th3, mode="dragmove", size=(800, 600), keep_aspect_ratio=False, zoom_factor=4.0, increment=0.2)
 
