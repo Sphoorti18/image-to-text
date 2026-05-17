@@ -14,7 +14,7 @@ st.set_page_config(
 )
 @st.cache_resource
 def load_reader(language):
-    return easyocr.Reader([language], gpu=True)
+    return easyocr.Reader([language], gpu=False)
 def ocr(src_img):
     if src_img is not None:
     # To read file as bytes:
