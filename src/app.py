@@ -104,7 +104,40 @@ st.set_page_config(
     page_icon="🔍",
     layout="wide"
 )
+with st.popover("Instructions"):
+    st.markdown("""
+    ### How to Use This OCR Tool 🔍
 
+    **Step 1 – Provide an Image**
+    - Choose **Upload a File** to upload a JPG or PNG from your device.
+    - Or choose **Use Camera** → enable the camera → snap a photo directly.
+
+    **Step 2 – Crop the Region of Interest**
+    In the sidebar:
+    - Pick an **Aspect Ratio** (or choose *Free* for freeform).
+    - Drag the crop box over the text you want to extract.
+    - Toggle **Update in Real Time** to see the processed image update live (or double-click to confirm the crop when it's off).
+    - Adjust the **Box Color** to make the crop handle easier to see.
+
+    **Step 3 – Tune Pre-processing**
+    - Use the **Kernel Size** slider (sidebar) to control Gaussian blur strength.  
+      A smaller value (e.g. 1–3) works well for sharp, printed text; larger values help smooth noisy or handwritten text.
+    - Compare the **Cropped** vs **Processed** previews to check quality before running OCR.
+
+    **Step 4 – Select a Language**
+    - Choose the language of the text in your image: **English, Korean, Japanese, or Hindi**.
+
+    **Step 5 – Get Your Text**
+    - The extracted text appears automatically below the previews.
+    - Click **Download Text** to save it as a `.txt` file.
+
+    ---
+    💡 **Tips for best results:**
+    - Crop as tightly as possible around the text.
+    - Ensure good lighting and contrast in the original image.
+    - If no text is detected, try a different kernel size or re-crop.
+    """)
+    
 input_method = st.radio(
     "Choose how to provide the image:",
     ("Upload a File", "Use Camera")
