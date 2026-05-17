@@ -19,9 +19,11 @@ def ocr(src_img):
 
         #CROPPING
         with st.sidebar:
+            st.subheader("Cropping tool")
             realtime_update = st.checkbox(label="Update in Real Time", value=True)
             box_color = st.color_picker(label="Box Color", value='#0000FF')
             aspect_choice = st.radio(label="Aspect Ratio", options=["1:1", "16:9", "4:3", "2:3", "Free"])
+
             kernel_size = st.slider(label="Kernel size for Gaussian Blur", min_value=1, max_value=9, value=3, step=2)
         aspect_dict = {
             "1:1": (1, 1),
