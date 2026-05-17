@@ -4,11 +4,17 @@ import numpy as np
 import easyocr
 from streamlit_cropper import st_cropper
 from PIL import Image
+from gtts import gTTS
+import os
 #from streamlit_image_zoom import image_zoom
-
+st.set_page_config(
+    page_title="Image to Text OCR",
+    page_icon="🔍",
+    layout="wide"
+)
 @st.cache_resource
 def load_reader(language):
-    return easyocr.Reader([language], gpu=False)
+    return easyocr.Reader([language], gpu=True)
 def ocr(src_img):
     if src_img is not None:
     # To read file as bytes:
@@ -93,17 +99,29 @@ def ocr(src_img):
             if result:
                 st.write(result)
                 full_text = "\n".join(result)
+                try:
+                    with st.spinner("Generating audio..."):
+                        speech=gTTS(text=full_text, lang=selected_value, slow=False)
+                        audio="ocr.mp3"
+                        speech.save(audio)
+                    st.audio(audio, format="audio/mp3")
+                    with open(audio, "rb") as file:
+                        st.download_button(
+                            label="Download Audio (MP3)",
+                            data=file,
+                            file_name="ocr_speech.mp3",
+                            mime="audio/mp3"
+                        )
+                except Exception as e:
+                    st.error("Could not generate audio. Please check your internet connection.")
+                #os.system(f"start {audio}")
                 st.download_button("Download Text", full_text, file_name="ocr.txt")
             else:
                 st.warning("No text detected. Try adjusting the crop or kernel size.")
     else:
         st.info("Please upload before you proceed!")
 
-st.set_page_config(
-    page_title="Image to Text OCR",
-    page_icon="🔍",
-    layout="wide"
-)
+
 with st.popover("Instructions"):
     st.markdown("""
     ### How to Use This OCR Tool 🔍
